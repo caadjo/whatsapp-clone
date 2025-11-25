@@ -1,10 +1,8 @@
 package com.alibou.whatsappclone.chat;
 import com.alibou.whatsappclone.common.BaseAuditingEntity;
+import com.alibou.whatsappclone.message.Message;
 import com.alibou.whatsappclone.user.User;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,8 +23,17 @@ public class Chat extends BaseAuditingEntity{
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    @ManyToOne
+    @JoinColumn(name = "sender_id")
     private User sender;
+
+    @ManyToOne
+    @JoinColumn(name = "recipient_id")
     private User recipient;
+
+
+    @OneToMany(mappedBy = "chat",fetch = FetchType.EAGER)
+    @OrderBy("createdDate DESC")
     private List<Message> messages;
 
 }
