@@ -18,6 +18,16 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Entity
 @Table(name = "message")
+
+@NamedQuery(name = MessageConstants.FIND_MESSAGES_BY_CHAT_ID,
+            query = "SELECT u FROM Message m WHERE m.chat.id = :chatId ORDER BY m.createdDate")
+
+@NamedQuery(name = MessageConstants.SET_MESSAGES_TO_SEEN_BY_CHAT,
+            query = "UPDATE Message SET state = :newState WHERE  chat.id = :chatId")
+
+
+
+
 public class Message extends BaseAuditingEntity{
 
     @Id
