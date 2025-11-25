@@ -3,6 +3,7 @@ package com.alibou.whatsappclone.user;
 
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @Service
@@ -27,7 +28,10 @@ public class UserMapper {
             user.setEmail(attributes.get("email").toString());
         }
 
-        return null;
+        user.setLastSeen(LocalDateTime.now());
+        return user;
+
+
     }
 
 }
