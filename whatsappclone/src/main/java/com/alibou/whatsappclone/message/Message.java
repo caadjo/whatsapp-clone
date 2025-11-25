@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.internal.engine.messageinterpolation.parser.MessageState;
 
+import java.awt.*;
 import java.time.LocalDate;
 
 
@@ -30,4 +31,11 @@ public class Message extends BaseAuditingEntity{
     @Enumerated(EnumType.STRING)
     private MessageState state;
 
+    @Enumerated(EnumType.STRING)
+    private MessageType type;
+
+    @Column(name = "sender_id",nullable = false)
+    private String senderId;
+    @Column(name = "receiver_id",nullable = false)
+    private String receiverId;
 }
