@@ -2,6 +2,7 @@ package com.alibou.whatsappclone.message;
 
 import com.alibou.whatsappclone.chat.Chat;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -15,6 +16,7 @@ public interface MessageRepository extends JpaRepository<Message,Long> {
     List<Message> findMessagesByChatId(String chatId);
 
     @Query(name = MessageConstants.SET_MESSAGES_TO_SEEN_BY_CHAT)
+    @Modifying
     void setMessagesToSeenByChaId(@Param("chatid")String chatId, @Param("newState")MessageState state);
 
 }
