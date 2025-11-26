@@ -13,10 +13,15 @@ import java.util.List;
 public class ChatService {
 
     private final ChatRepository chatRepository;
+    private final ChatMapper mapper;
+
 
     @Transactional(readOnly = true)
     public List<ChatResponse> getChatsByReceiverId(Authentication currentUser){
         final String userId = currentUser.getName();
-        return chatRepository.findChatsBySenderId(userId);
+        return chatRepository.findChatsBySenderId(userId)
+                .stream()
+                .map()
+
     }
 }
