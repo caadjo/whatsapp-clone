@@ -1,5 +1,6 @@
 package com.alibou.whatsappclone.message;
 
+import com.alibou.whatsappclone.chat.Chat;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -11,4 +12,8 @@ public interface MessageRepository extends JpaRepository<Message,Long> {
 
     @Query(name = MessageConstants.FIND_MESSAGES_BY_CHAT_ID)
     List<Message> findMessagesByChatId(String chatId);
+
+
+    void setMessagesToSeenByChaId(Chat chat, MessageState messageState);
+
 }
