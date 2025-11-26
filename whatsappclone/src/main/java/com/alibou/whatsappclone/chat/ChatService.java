@@ -16,6 +16,8 @@ public class ChatService {
     private final ChatMapper mapper;
 
 
+    // PROVAVEL ERRO CHAT RESPONSE -> CHAT - TROCAR PARAMETROS
+
     @Transactional(readOnly = true)
     public List<ChatResponse> getChatsByReceiverId(Authentication currentUser){
         final String userId = currentUser.getName();
