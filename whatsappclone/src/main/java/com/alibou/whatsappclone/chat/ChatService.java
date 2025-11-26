@@ -1,6 +1,4 @@
-
 package com.alibou.whatsappclone.chat;
-
 
 import com.alibou.whatsappclone.user.User;
 import com.alibou.whatsappclone.user.UserRepository;
@@ -18,33 +16,29 @@ import java.util.Optional;
 public class ChatService {
 
     private final ChatRepository chatRepository;
-    private final ChatMapper mapper;
     private final UserRepository userRepository;
-
-
-    // PROVAVEL ERRO CHAT RESPONSE -> CHAT - TROCAR PARAMETROS
+    private final ChatMapper mapper;
 
     @Transactional(readOnly = true)
-    public List<ChatResponse> getChatsByReceiverId(Authentication currentUser){
+    public List<ChatResponse> getChatsByReceiverId(Authentication currentUser) {
         final String userId = currentUser.getName();
         return chatRepository.findChatsBySenderId(userId)
                 .stream()
-                .map(c -> mapper.toChatResponse(c,userId))
+                .map(c -> mapper.toChatResponse(c, userId))
                 .toList();
-
     }
 
-    public String createChat(String senderId,String receiverId) {
-        Optional<Chat> exitingChat = chatRepository.findChatByReceiverAndSender(senderId, receiverId);
-        if (exitingChat.isPresent()) {
-            return exitingChat.get().getId();
+    public String createChat(String senderId, String receiverId) {
+
+        Optional<Chat> existingChat = chatRepository.findChatByReceiverAndSender(senderId, receiverId);
+        if (existingChat.isPresent()) {
+            return existingChat.get().getId();
         }
 
         User sender = userRepository.findByPublicId(senderId)
-                .orElseThrow(() -> new EntityNotFoundException("User with id " + senderId + " not found"));
-
+                .orElseThrow(() ->  new EntityNotFoundException("User with id " + senderId + " not found"));
         User receiver = userRepository.findByPublicId(receiverId)
-                .orElseThrow(() -> new EntityNotFoundException("User with id " + receiverId + " not found"));
+                .orElseThrow(() ->  new EntityNotFoundException("User with id " + receiverId + " not found"));
 
         Chat chat = new Chat();
         chat.setSender(sender);
@@ -52,8 +46,5 @@ public class ChatService {
 
         Chat savedChat = chatRepository.save(chat);
         return savedChat.getId();
-
     }
-
-
-
+}

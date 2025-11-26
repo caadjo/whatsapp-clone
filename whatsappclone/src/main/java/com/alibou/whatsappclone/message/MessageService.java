@@ -18,6 +18,12 @@ public class MessageService {
         Chat chat = chatRepository.findById(messageRequest.getChatId())
                 .orElseThrow(() -> new EntityNotFoundException("Chat not found"));
 
+        Message message = new Message();
+        message.setContent(messageRequest.getContent());
+        message.setChat(chat);
+
+
+
     }
 
 }
