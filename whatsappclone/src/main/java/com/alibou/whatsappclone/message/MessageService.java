@@ -4,7 +4,10 @@ import com.alibou.whatsappclone.chat.Chat;
 import com.alibou.whatsappclone.chat.ChatRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -13,6 +16,7 @@ public class MessageService {
 
     private final MessageRepository messageRepository;
     private final ChatRepository chatRepository;
+    private final MessageMapper mapper;
 
     public void saveMessage(MessageRequest messageRequest) {
         Chat chat = chatRepository.findById(messageRequest.getChatId())
@@ -29,10 +33,31 @@ public class MessageService {
         messageRepository.save(message);
 
 
-        // notificatio to-do
-
-
+        // notification todo
 
     }
+    public List<MessageResponse> findChatMessages(String chatId){
+        return messageRepository.findMessagesByChatId(chatId)
+                .stream()
+                .map(mapper::toMessageResponse)
+                .toList();
+    }
+
+    public void setMessagesToSeen(String chatId, Authentication authentication){
+        Chat chat = chatRepository.findById(chatId)
+                .orElseThrow(() -> new EntityNotFoundException("Chat not found"));
+
+        final String recipientId = getRecipientId(chat,authentication);
+
+        messageRepository.setMessagesToSeenByChatId(chat,MessageState.SEEN);
+    }
+
+    private String getRecipientId(Chat chat, Authentication authentication) {
+        if(chat.getSender().getId().equals(authentication.getName())){
+            return chat.getRecipient().getId();
+        }
+        return chat.getSender().getId();
+    }
+
 
 }
