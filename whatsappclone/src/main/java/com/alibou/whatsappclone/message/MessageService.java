@@ -21,6 +21,15 @@ public class MessageService {
         Message message = new Message();
         message.setContent(messageRequest.getContent());
         message.setChat(chat);
+        message.setSenderId(messageRequest.getSenderId());
+        message.setReceiverId(messageRequest.getReceiverId());
+        message.setType(messageRequest.getType());
+        message.setState(MessageState.SENT);
+
+        messageRepository.save(message);
+
+
+        // notificatio to-do
 
 
 
