@@ -21,7 +21,8 @@ public class ChatService {
         final String userId = currentUser.getName();
         return chatRepository.findChatsBySenderId(userId)
                 .stream()
-                .map()
+                .map(c -> mapper.toChatResponse(c,userId))
+                .toList();
 
     }
 }
