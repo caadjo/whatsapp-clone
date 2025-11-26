@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +26,11 @@ public class ChatService {
                 .stream()
                 .map(c -> mapper.toChatResponse(c,userId))
                 .toList();
+
+    }
+
+    public String createChat(String senderId,String receiverId){
+        Optional<Chat> exitingChat = chatRepository.findChatByReceiverAndSender(senderId,receiverId);
 
     }
 }
