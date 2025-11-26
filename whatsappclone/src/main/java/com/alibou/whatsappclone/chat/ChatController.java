@@ -4,6 +4,7 @@ package com.alibou.whatsappclone.chat;
 import com.alibou.whatsappclone.common.StringResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,5 +25,16 @@ public class ChatController {
                 .response(chatId)
                 .build();
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping
+    public ResponseEntity<ChatResponse> getChatsByReceiver (Authentication authentication) {
+        //
+
+        //
+
+        //
+        return ResponseEntity.ok(chatService.getChatsByReceiverId(authentication));
+
     }
 }
