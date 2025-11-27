@@ -20,18 +20,27 @@ services:
     ports:
       - 9090:8080
     environment:
+      # Conexão com o Banco de Dados
+      KC_DB: postgres
+      KC_DB_URL_HOST: postgres
+      KC_DB_URL_DATABASE: whatsapp_clone
+      KC_DB_USERNAME: username
+      KC_DB_PASSWORD: password
+      # Configuração do Admin
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
+      # Configuração de Hostname para CORS
+      KC_HOSTNAME: localhost
     networks:
-      whatsapp-clone:
+      - whatsapp-clone
     command:
       - "start-dev"
-
+    depends_on:
+      - postgres
 
 networks:
   whatsapp-clone:
     driver: bridge
-
 
 volumes:
   postgres:
