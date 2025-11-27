@@ -68,8 +68,19 @@ public class MessageService {
                 .orElseThrow(() -> new EntityNotFoundException("Chat not found"));
         final String senderId = getSenderId(chat,authentication);
         final String recipientId = getRecipientId(chat,authentication);
-        final String filePath = fileService.saveFile(file,senderId);
 
+        final String filePath = fileService.saveFile(file,senderId);
+        Message message = new Message();
+        message.setChat(chat);
+        message.setSenderId(senderId);
+        message.setReceiverId(recipientId);
+        message.setType(MessageType.IMAGE);
+        message.setState(MessageState.SENT);
+        message.setMediaFilePath(filePath);
+
+        messageRepository.save(message);
+
+        //todo notification
 
     }
 
