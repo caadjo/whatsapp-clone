@@ -1,0 +1,95 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Segoe UI', 'Helvetica Neue', Helvetica, 'Lucida Grande', Arial, Ubuntu, Cantarell, 'Fira Sans', sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #f0f2f5;
+  color: #111b21;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Cores do WhatsApp */
+:root {
+  --whatsapp-green: #25D366;
+  --whatsapp-dark: #128C7E;
+  --whatsapp-teal: #075E54;
+  --whatsapp-light: #DCF8C6;
+}
+
+@layer utilities {
+  .bg-whatsapp-green {
+    background-color: #25D366;
+  }
+  .bg-whatsapp-dark {
+    background-color: #128C7E;
+  }
+  .bg-whatsapp-teal {
+    background-color: #075E54;
+  }
+  .bg-whatsapp-light {
+    background-color: #DCF8C6;
+  }
+  .text-whatsapp-green {
+    color: #25D366;
+  }
+  .text-whatsapp-dark {
+    color: #128C7E;
+  }
+  .hover\:bg-whatsapp-dark:hover {
+    background-color: #128C7E;
+  }
+  .hover\:text-whatsapp-dark:hover {
+    color: #128C7E;
+  }
+  .focus\:ring-whatsapp-green:focus {
+    --tw-ring-color: #25D366;
+  }
+  .from-whatsapp-teal {
+    --tw-gradient-from: #075E54;
+  }
+  .to-whatsapp-dark {
+    --tw-gradient-to: #128C7E;
+  }
+}
