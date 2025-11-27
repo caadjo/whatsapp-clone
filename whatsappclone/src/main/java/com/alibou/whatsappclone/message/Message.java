@@ -1,7 +1,6 @@
 package com.alibou.whatsappclone.message;
 
 import com.alibou.whatsappclone.chat.Chat;
-import com.alibou.whatsappclone.common.BaseAuditingEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -18,6 +17,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -31,7 +34,8 @@ import lombok.Setter;
 @NamedQuery(name = MessageConstants.SET_MESSAGES_TO_SEEN_BY_CHAT,
         query = "UPDATE Message SET state = :newState WHERE chat.id = :chatId"
 )
-public class Message extends BaseAuditingEntity {
+// Removido extends BaseAuditingEntity
+public class Message {
 
     @Id
     @SequenceGenerator(name = "msg_seq", sequenceName = "msg_seq", allocationSize = 1)
@@ -51,5 +55,14 @@ public class Message extends BaseAuditingEntity {
     @Column(name = "receiver_id", nullable = false)
     private String receiverId;
     private String mediaFilePath;
+
+    // Campos de auditoria movidos para cá
+    @CreatedDate
+    @Column(name = "created_date", nullable = false, updatable = false)
+    private LocalDateTime createdDate;
+
+    @LastModifiedDate
+    @Column(name = "last_modified_date", nullable = false)
+    private LocalDateTime lastModifiedDate;
 
 }
