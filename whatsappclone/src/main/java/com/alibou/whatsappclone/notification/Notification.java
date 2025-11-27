@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -14,6 +16,7 @@ import lombok.Setter;
 @Builder
 public class Notification {
 
+    private Long id; // ID da mensagem
     private String chatId;
     private String content;
     private String senderId;
@@ -22,4 +25,5 @@ public class Notification {
     private MessageType messageType;
     private NotificationType type;
     private byte[] media;
+    private LocalDateTime createdAt; // Data de criação da mensagem
 }
