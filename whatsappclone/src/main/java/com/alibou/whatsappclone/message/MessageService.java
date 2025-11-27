@@ -103,7 +103,14 @@ public class MessageService {
 
         messageRepository.save(message);
 
-        //todo notification
+        Notification notification = Notification.builder()
+                .chatId(chat.getId())
+                .messageType(MessageType.IMAGE)
+                .type(NotificationType.IMAGE)
+                .receiverId(recipientId)
+                .senderId(senderId)
+                .media(FileUtils.readFileFromLocation(filePath))
+                .build();
 
     }
 
