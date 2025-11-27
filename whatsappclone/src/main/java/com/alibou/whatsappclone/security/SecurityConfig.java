@@ -1,5 +1,6 @@
 package com.alibou.whatsappclone.security;
 
+import com.alibou.whatsappclone.user.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -12,16 +13,23 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
+// Removido @RequiredArgsConstructor
 public class SecurityConfig {
 
+    // Não injetamos mais aqui
+
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public KeycloakJwtAuthenticationConverter keycloakJwtAuthenticationConverter(UserService userService) {
+        return new KeycloakJwtAuthenticationConverter(userService);
+    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, KeycloakJwtAuthenticationConverter keycloakJwtAuthenticationConverter) throws Exception {
         http
                 .cors(withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
@@ -44,7 +52,7 @@ public class SecurityConfig {
                 )
                 .oauth2ResourceServer(auth ->
                         auth.jwt(token ->
-                                token.jwtAuthenticationConverter(new KeycloakJwtAuthenticationConverter())));
+                                token.jwtAuthenticationConverter(keycloakJwtAuthenticationConverter))); // Usamos o bean
         return http.build();
     }
 
@@ -53,7 +61,7 @@ public class SecurityConfig {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         final CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
+        config.setAllowedOrigins(Arrays.asList("http://localhost:4200", "http://localhost:5173"));
         config.setAllowedHeaders(Arrays.asList(
                 HttpHeaders.ORIGIN,
                 HttpHeaders.CONTENT_TYPE,
