@@ -1,14 +1,11 @@
 package com.alibou.whatsappclone.message;
 
-
 import com.alibou.whatsappclone.file.FileUtils;
 import org.springframework.stereotype.Service;
 
 @Service
 public class MessageMapper {
     public MessageResponse toMessageResponse(Message message) {
-
-
         return MessageResponse.builder()
                 .id(message.getId())
                 .content(message.getContent())
@@ -18,7 +15,6 @@ public class MessageMapper {
                 .state(message.getState())
                 .createdAt(message.getCreatedDate())
                 .media(FileUtils.readFileFromLocation(message.getMediaFilePath()))
-
                 .build();
     }
 }

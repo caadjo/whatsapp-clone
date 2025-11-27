@@ -1,6 +1,10 @@
 package com.alibou.whatsappclone.message;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -9,7 +13,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-
 public class MessageResponse {
 
     private Long id;
@@ -18,7 +21,6 @@ public class MessageResponse {
     private MessageState state;
     private String senderId;
     private String receiverId;
-    private LocalDateTime updatedAt;
+    private LocalDateTime createdAt;
     private byte[] media;
-
 }
