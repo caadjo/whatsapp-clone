@@ -1,52 +1,52 @@
-# WhatsApp Clone - Frontend
+# 🎨 WhatsApp Clone - Frontend
 
-This directory contains the source code for the frontend of the WhatsApp Clone application, built with React and Vite.
+This directory contains the React-based frontend for the WhatsApp Clone application, built with Vite for a lightning-fast development experience.
 
-## Overview
+## ✨ Overview
 
 The frontend is a modern Single-Page Application (SPA) that provides a responsive and real-time user interface for the chat service. It communicates with the backend via a RESTful API for data and uses WebSockets for instant messaging.
 
 ---
 
-## Tech Stack & Libraries
+## 🛠️ Tech Stack & Libraries
 
-- **Framework:** React 18
-- **Build Tool:** Vite
-- **State Management:** Zustand - A small, fast, and scalable state-management solution.
-- **HTTP Client:** Axios - For making REST API requests to the backend.
-- **WebSocket Client:** StompJS and SockJS-Client - For handling real-time communication with the STOMP message broker on the backend.
-- **UI Components:** Material-UI (MUI) - Used for icons and some UI components to accelerate development.
-- **Authentication:** `@react-keycloak/web` - Integrates the frontend with Keycloak for secure authentication.
-- **Routing:** `react-router-dom`
+-   **⚛️ Framework:** React 18
+-   **⚡ Build Tool:** Vite
+-   **🐻 State Management:** Zustand
+-   **🌐 HTTP Client:** Axios
+-   **🔌 WebSocket Client:** StompJS & SockJS-Client
+-   **🎨 UI Components:** Material-UI (MUI)
+-   **🔐 Authentication:** `@react-keycloak/web`
+-   **🗺️ Routing:** `react-router-dom`
 
 ---
 
-## Project Structure
+## 📂 Project Structure
 
 The project follows a feature-oriented structure to keep the codebase organized and maintainable.
 
 ```
 /src
 |
-|-- /components       # Reusable UI components (e.g., layout, chat bubbles)
-|-- /config           # Configuration files (e.g., Keycloak client)
-|-- /hooks            # Custom React hooks (e.g., useWebSocket)
-|-- /pages            # Top-level page components (e.g., Chat, Login)
-|-- /services         # Modules for API communication (e.g., messageService, chatService)
-|-- /store            # Zustand store for global state management (e.g., chatStore)
-|-- App.jsx           # Main application component with routing
-|-- main.jsx          # Entry point of the application
+|-- /components       # 🧩 Reusable UI components (e.g., layout, chat bubbles)
+|-- /config           # ⚙️ Configuration files (e.g., Keycloak client)
+|-- /hooks            # 🎣 Custom React hooks (e.g., useWebSocket)
+|-- /pages            # 📄 Top-level page components (e.g., Chat, Login)
+|-- /services         # 📡 Modules for API communication
+|-- /store            # 🏪 Zustand store for global state management
+|-- App.jsx           # 🌍 Main application component with routing
+|-- main.jsx          # 🚀 Entry point of the application
 ```
 
 ---
 
-## Local Development
+## 💻 Local Development
 
-### Prerequisites
-- **Node.js 18+** and **npm**
-- The backend server and infrastructure (PostgreSQL, Keycloak) must be running. Refer to the main project `README.md` for instructions.
+### ✅ Prerequisites
+-   **Node.js 18+** and **npm**.
+-   The backend server and infrastructure (PostgreSQL, Keycloak) must be running. Refer to the main project `README.md` for instructions.
 
-### Running the Application
+### 🚀 Running the Application
 
 1.  **Navigate to the directory:**
     ```sh
@@ -54,22 +54,22 @@ The project follows a feature-oriented structure to keep the codebase organized 
     ```
 
 2.  **Install dependencies:**
-    This command will download all the necessary packages defined in `package.json`.
+    This command downloads all the necessary packages.
     ```sh
     npm install
     ```
 
 3.  **Start the development server:**
-    This command starts the Vite development server with hot-reloading enabled.
+    This starts the Vite dev server with hot-reloading.
     ```sh
     npm run dev
     ```
 
 The application will be available at `http://localhost:5173`.
 
-## Available Scripts
+### 📜 Available Scripts
 
-- `npm run dev`: Starts the development server.
-- `npm run build`: Bundles the application for production.
-- `npm run preview`: Serves the production build locally for testing.
-- `npm run lint`: Lints the codebase to check for errors and style issues.
+-   `npm run dev`: Starts the development server.
+-   `npm run build`: Bundles the application for production.
+-   `npm run preview`: Serves the production build locally for testing.
+-   `npm run lint`: Lints the codebase to check for errors.
