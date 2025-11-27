@@ -3,6 +3,9 @@ package com.alibou.whatsappclone.message;
 import com.alibou.whatsappclone.chat.Chat;
 import com.alibou.whatsappclone.chat.ChatRepository;
 import com.alibou.whatsappclone.file.FileService;
+import com.alibou.whatsappclone.notification.Notification;
+import com.alibou.whatsappclone.notification.NotificationService;
+import com.alibou.whatsappclone.notification.NotificationType;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
@@ -21,6 +24,8 @@ public class MessageService {
     private final ChatRepository chatRepository;
     private final MessageMapper mapper;
     private final FileService fileService;
+    private final NotificationService notificationService;
+
 
 
     public void saveMessage(MessageRequest messageRequest) {
@@ -38,7 +43,17 @@ public class MessageService {
         messageRepository.save(message);
 
 
-        // notification todo
+        Notification notification = Notification.builder()
+                .chatId(chat.getId())
+                .messageType(messageRequest.getType())
+                .content(messageRequest.getContent())
+                .senderId(messageRequest.getSenderId())
+                .receiverId(messageRequest.getReceiverId())
+                .type(NotificationType.MESSAGE)
+                .chatName(chat.getChatName(message.getSenderId()))
+                .build();
+
+        notificationService.sendNotification(message.getReceiverId(),notification);
 
     }
     public List<MessageResponse> findChatMessages(String chatId){
@@ -59,7 +74,15 @@ public class MessageService {
         messageRepository.setMessagesToSeenByChatId(chatId,MessageState.SEEN);
 
 
-        // todo notification
+        Notification notification = Notification.builder()
+                .chatId(chat.getId())
+                .type(NotificationType.SEEN)
+                .receiverId(recipientId)
+                .senderId(getSenderId(chat,authentication))
+                .build();
+
+        notificationService.sendNotification(message.getReceiverId(),notification);
+
 
     }
 
