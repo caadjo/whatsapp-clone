@@ -1,7 +1,7 @@
 package com.alibou.whatsappclone.user;
 
 import com.alibou.whatsappclone.chat.Chat;
-import com.alibou.whatsappclone.common.BaseAuditingEntity;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
@@ -12,6 +12,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,7 +31,8 @@ import java.util.List;
         query = "SELECT u FROM User u WHERE u.id != :publicId")
 @NamedQuery(name = UserConstants.FIND_USER_BY_PUBLIC_ID,
         query = "SELECT u FROM User u WHERE u.id = :publicId")
-public class User extends BaseAuditingEntity {
+// Removido extends BaseAuditingEntity e @EntityListeners
+public class User {
 
     private static final int LAST_ACTIVATE_INTERVAL = 5;
 
@@ -39,6 +42,16 @@ public class User extends BaseAuditingEntity {
     private String lastName;
     private String email;
     private LocalDateTime lastSeen;
+
+    // Campos de auditoria movidos para cá
+    @CreatedDate
+    @Column(name = "created_date", nullable = false, updatable = false)
+    private LocalDateTime createdDate;
+
+    @LastModifiedDate
+    @Column(name = "last_modified_date", nullable = false)
+    private LocalDateTime lastModifiedDate;
+
 
     @OneToMany(mappedBy = "sender")
     private List<Chat> chatsAsSender;
