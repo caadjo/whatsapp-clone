@@ -9,12 +9,11 @@ spring:
     show-sql: false
     properties:
       hibernate:
-        format_sql: true
+        format_sql: false
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   flyway:
     enabled: false
-
   security:
     oauth2:
       resourceserver:
@@ -24,7 +23,11 @@ spring:
     multipart:
       max-file-size: 50MB
 
+springdoc:
+  default-produces-media-type: application/json
+
+
 application:
   file:
     uploads:
-      media-output.path: ./uploads
+      media-output-path: ./uploads
