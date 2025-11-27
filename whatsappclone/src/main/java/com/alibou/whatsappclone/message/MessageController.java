@@ -37,7 +37,7 @@ public class MessageController {
 
     @PatchMapping
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void setMessagesToSeen(@RequestParam("chat-id)" String chatId,Authentication authentication) {
+    public void setMessagesToSeen(@RequestParam("chat-id") String chatId,Authentication authentication) {
         messageService.setMessagesToSeen(chatId,authentication);
     }
 
