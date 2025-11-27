@@ -43,9 +43,9 @@ public class MessageController {
         messageService.setMessagesToSeen(chatId,authentication);
     }
 
-    @GetMapping("/chat/{chat-id}")
+    @GetMapping("/chat/{chatId}") // Corrigido de {chat-id} para {chatId}
     public ResponseEntity<List<MessageResponse>> getMessages(
-            @PathVariable("chat-id") String chatId
+            @PathVariable("chatId") String chatId // Corrigido de "chat-id" para "chatId"
     ){
         return ResponseEntity.ok(messageService.findChatMessages(chatId));
     }
