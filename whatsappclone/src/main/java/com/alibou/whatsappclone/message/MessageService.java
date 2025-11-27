@@ -3,6 +3,7 @@ package com.alibou.whatsappclone.message;
 import com.alibou.whatsappclone.chat.Chat;
 import com.alibou.whatsappclone.chat.ChatRepository;
 import com.alibou.whatsappclone.file.FileService;
+import com.alibou.whatsappclone.file.FileUtils;
 import com.alibou.whatsappclone.notification.Notification;
 import com.alibou.whatsappclone.notification.NotificationService;
 import com.alibou.whatsappclone.notification.NotificationType;
@@ -81,7 +82,7 @@ public class MessageService {
                 .senderId(getSenderId(chat,authentication))
                 .build();
 
-        notificationService.sendNotification(message.getReceiverId(),notification);
+        notificationService.sendNotification(recipientId,notification);
 
 
     }
@@ -110,8 +111,10 @@ public class MessageService {
                 .receiverId(recipientId)
                 .senderId(senderId)
                 .media(FileUtils.readFileFromLocation(filePath))
+                // review the media
                 .build();
 
+        notificationService.sendNotification(recipientId,notification);
     }
 
     private String getSenderId(Chat chat, Authentication authentication) {
