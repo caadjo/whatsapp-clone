@@ -1,5 +1,6 @@
 package com.alibou.whatsappclone.message;
 
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,10 +28,11 @@ public class MessageController {
     @ResponseStatus(HttpStatus.CREATED)
     public void uploadMedia(
             @RequestParam("chat-id") String chatId,
-            // todo add @Parameter from swagger
-            @RequestParam("file") MultipartFile file
-            Authentication authentication) {
-        messageService.uploadMediaMessage(chatId,file,authentication);
+            @Parameter()
+            @RequestPart("file") MultipartFile file,
+            Authentication authentication
+    ) {
+        messageService.uploadMediaMessage(chatId, file, authentication);
     }
 
     @PatchMapping
