@@ -1,11 +1,11 @@
 package com.alibou.whatsappclone.chat;
 
 
-import com.alibou.whatsappclone.common.BaseAuditingEntity;
 import com.alibou.whatsappclone.message.Message;
 import com.alibou.whatsappclone.message.MessageState;
 import com.alibou.whatsappclone.message.MessageType;
 import com.alibou.whatsappclone.user.User;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -21,6 +21,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,13 +35,14 @@ import static jakarta.persistence.GenerationType.UUID;
 @NoArgsConstructor
 @Entity
 @Table(name = "chat")
+// Removido @EntityListeners e extends BaseAuditingEntity
 @NamedQuery(name = ChatConstants.FIND_CHAT_BY_SENDER_ID,
         query = "SELECT DISTINCT c FROM Chat c WHERE c.sender.id = :senderId OR c.recipient.id = :senderId ORDER BY createdDate DESC"
 )
 @NamedQuery(name = ChatConstants.FIND_CHAT_BY_SENDER_ID_AND_RECEIVER,
         query = "SELECT DISTINCT c FROM Chat c WHERE (c.sender.id = :senderId AND c.recipient.id = :recipientId) OR (c.sender.id = :recipientId AND c.recipient.id = :senderId) ORDER BY createdDate DESC"
 )
-public class Chat extends BaseAuditingEntity {
+public class Chat {
     @Id
     @GeneratedValue(strategy = UUID)
     private String id;
@@ -52,6 +55,15 @@ public class Chat extends BaseAuditingEntity {
     @OneToMany(mappedBy = "chat", fetch = FetchType.EAGER)
     @OrderBy("createdDate DESC")
     private List<Message> messages;
+
+    // Campos de auditoria movidos para cá
+    @CreatedDate
+    @Column(name = "created_date", nullable = false, updatable = false)
+    private LocalDateTime createdDate;
+
+    @LastModifiedDate
+    @Column(name = "last_modified_date", nullable = false)
+    private LocalDateTime lastModifiedDate;
 
     @Transient
     public String getChatName(String senderId) {
